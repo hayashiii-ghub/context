@@ -1,0 +1,151 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+APP_NAME="Context"
+BUNDLE_ID="work.hayashigoto.Context"
+ZIP_URL="https://github.com/hayashiii-ghub/context/releases/latest/download/context-macos.zip"
+TMP_DIR="$(mktemp -d)"
+ZIP_PATH="$TMP_DIR/context-macos.zip"
+EXTRACT_DIR="$TMP_DIR/extract"
+
+cleanup() {
+  rm -rf "$TMP_DIR"
+}
+trap cleanup EXIT
+
+validate_app() {
+  local app="$1"
+  local info_plist="$app/Contents/Info.plist"
+  local executable_name
+  local version
+
+  [[ -d "$app" && -f "$info_plist" ]] || return 1
+  [[ "$(plutil -extract CFBundleIdentifier raw "$info_plist" 2>/dev/null)" == "$BUNDLE_ID" ]] || return 1
+
+  executable_name="$(plutil -extract CFBundleExecutable raw "$info_plist" 2>/dev/null)"
+  [[ -n "$executable_name" && -x "$app/Contents/MacOS/$executable_name" ]] || return 1
+
+  version="$(plutil -extract CFBundleShortVersionString raw "$info_plist" 2>/dev/null)"
+  [[ "$version" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]] || return 1
+  codesign --verify --deep --strict "$app"
+}
+
+choose_install_dir() {
+  if [[ -n "${CONTEXT_INSTALL_DIR:-}" ]]; then
+    printf '%s\n' "$CONTEXT_INSTALL_DIR"
+    return
+  fi
+
+  if [[ -d "/Applications/$APP_NAME.app" ]]; then
+    printf '%s\n' "/Applications"
+    return
+  fi
+
+  if [[ -d "$HOME/Applications/$APP_NAME.app" ]]; then
+    printf '%s\n' "$HOME/Applications"
+    return
+  fi
+
+  if [[ -w "/Applications" ]]; then
+    printf '%s\n' "/Applications"
+    return
+  fi
+
+  printf '%s\n' "$HOME/Applications"
+}
+
+install_app() {
+  local source_app="$1"
+  local destination_app="$2"
+  local install_dir
+  local staged_app
+  local backup_app
+  local use_sudo=0
+  install_dir="$(dirname "$destination_app")"
+  staged_app="$install_dir/.$APP_NAME.app.new.$$"
+  backup_app="$install_dir/.$APP_NAME.app.backup.$$"
+
+  if [[ ! -w "$install_dir" ]]; then
+    use_sudo=1
+    echo "Installing to $install_dir requires administrator permission."
+  fi
+
+  run_install() {
+    if (( use_sudo )); then
+      sudo "$@"
+    else
+      "$@"
+    fi
+  }
+
+  rollback_install() {
+    if [[ -e "$backup_app" ]]; then
+      if [[ -e "$destination_app" ]]; then
+        run_install rm -rf "$backup_app"
+      else
+        run_install mv "$backup_app" "$destination_app"
+      fi
+    fi
+    run_install rm -rf "$staged_app"
+  }
+
+  trap 'rollback_install; exit 130' HUP INT TERM
+
+  run_install rm -rf "$staged_app" "$backup_app"
+  run_install ditto "$source_app" "$staged_app"
+  if ! validate_app "$staged_app"; then
+    run_install rm -rf "$staged_app"
+    echo "Staged $APP_NAME.app failed validation" >&2
+    return 1
+  fi
+
+  if [[ -e "$destination_app" ]]; then
+    run_install mv "$destination_app" "$backup_app"
+  fi
+
+  if ! run_install mv "$staged_app" "$destination_app"; then
+    if [[ -e "$backup_app" ]]; then
+      run_install mv "$backup_app" "$destination_app"
+    fi
+    return 1
+  fi
+
+  run_install rm -rf "$backup_app"
+  run_install xattr -dr com.apple.quarantine "$destination_app" 2>/dev/null || true
+  trap - HUP INT TERM
+}
+
+INSTALL_DIR="$(choose_install_dir)"
+DESTINATION_APP="$INSTALL_DIR/$APP_NAME.app"
+
+if [[ -n "${CONTEXT_ZIP_PATH:-}" ]]; then
+  echo "Using local $APP_NAME archive..."
+  cp "$CONTEXT_ZIP_PATH" "$ZIP_PATH"
+else
+  echo "Downloading latest $APP_NAME..."
+  curl -L --fail -A "Mozilla/5.0" -o "$ZIP_PATH" "$ZIP_URL"
+fi
+
+mkdir -p "$EXTRACT_DIR"
+ditto -x -k "$ZIP_PATH" "$EXTRACT_DIR"
+
+SOURCE_APP="$EXTRACT_DIR/$APP_NAME.app"
+if ! validate_app "$SOURCE_APP"; then
+  echo "Downloaded archive did not contain a valid $APP_NAME.app" >&2
+  exit 1
+fi
+
+if [[ "${CONTEXT_SKIP_STOP:-0}" != "1" ]]; then
+  echo "Stopping running $APP_NAME..."
+  pkill -x "$APP_NAME" >/dev/null 2>&1 || true
+fi
+
+mkdir -p "$INSTALL_DIR"
+echo "Installing to $DESTINATION_APP..."
+install_app "$SOURCE_APP" "$DESTINATION_APP"
+
+if [[ "${CONTEXT_SKIP_OPEN:-0}" != "1" ]]; then
+  open "$DESTINATION_APP"
+fi
+
+echo "Updated $APP_NAME at $DESTINATION_APP"

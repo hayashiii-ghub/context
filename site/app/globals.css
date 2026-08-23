@@ -1,0 +1,15 @@
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  overflow-x: clip;
+  background: #030304;
+}
+
+a,
+button,
+summary {
+  -webkit-tap-highlight-color: transparent;
+}
