@@ -17,9 +17,11 @@ export const metadata: Metadata = {
   openGraph: {
     title,
     description,
+    type: "website",
+    url: "/",
     images: [
       {
-        url: "/context/context-og.webp",
+        url: "/context/context-og.png",
         width: 1200,
         height: 630,
         alt: "Context — Keep it close before you need it",
@@ -30,7 +32,12 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title,
     description,
-    images: ["/context/context-og.webp"],
+    images: [
+      {
+        url: "/context/context-og.png",
+        alt: "Context — Keep it close before you need it",
+      },
+    ],
   },
 };
 

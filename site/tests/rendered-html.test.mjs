@@ -38,10 +38,13 @@ test("renders the standalone Context site at the root", async () => {
   assert.match(html, /context-workflow\.webp/);
   assert.match(html, /context-display-modes\.webp/);
   assert.match(html, /context-mark\.svg/);
-  assert.match(html, /property="og:image" content="https:\/\/context\.haygsiiii\.chatgpt\.site\/context\/context-og\.webp"/);
+  assert.match(html, /property="og:type" content="website"/);
+  assert.match(html, /property="og:url" content="https:\/\/context\.haygsiiii\.chatgpt\.site\/"/);
+  assert.match(html, /property="og:image" content="https:\/\/context\.haygsiiii\.chatgpt\.site\/context\/context-og\.png"/);
   assert.match(html, /property="og:image:width" content="1200"/);
   assert.match(html, /property="og:image:height" content="630"/);
-  assert.match(html, /name="twitter:image" content="https:\/\/context\.haygsiiii\.chatgpt\.site\/context\/context-og\.webp"/);
+  assert.match(html, /name="twitter:image" content="https:\/\/context\.haygsiiii\.chatgpt\.site\/context\/context-og\.png"/);
+  assert.match(html, /name="twitter:image:alt" content="Context — Keep it close before you need it"/);
   assert.match(html, /rel="icon" href="https:\/\/context\.haygsiiii\.chatgpt\.site\/context\/context-mark\.svg" type="image\/svg\+xml"/);
   assert.doesNotMatch(html, /context-current-icon\.png/);
   assert.match(html, /github\.com\/hayashiii-ghub\/context/);
