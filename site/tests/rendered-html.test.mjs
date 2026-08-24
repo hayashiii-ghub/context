@@ -38,6 +38,10 @@ test("renders the standalone Context site at the root", async () => {
   assert.match(html, /context-workflow\.webp/);
   assert.match(html, /context-display-modes\.webp/);
   assert.match(html, /context-mark\.svg/);
+  assert.match(html, /property="og:image" content="\/context\/context-og\.webp"/);
+  assert.match(html, /property="og:image:width" content="1200"/);
+  assert.match(html, /property="og:image:height" content="630"/);
+  assert.match(html, /name="twitter:image" content="\/context\/context-og\.webp"/);
   assert.match(html, /rel="icon" href="\/context\/context-mark\.svg" type="image\/svg\+xml"/);
   assert.doesNotMatch(html, /context-current-icon\.png/);
   assert.match(html, /github\.com\/hayashiii-ghub\/context/);
