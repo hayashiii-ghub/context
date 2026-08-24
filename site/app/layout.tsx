@@ -7,6 +7,7 @@ const description =
   "A small Mac shelf for files, folders, links, images, and text — ready for whatever comes next.";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://context.haygsiiii.chatgpt.site"),
   title,
   description,
   icons: {
