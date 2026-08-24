@@ -37,7 +37,9 @@ test("renders the standalone Context site at the root", async () => {
   assert.match(text, /Local-first, because in-between work is still your work/);
   assert.match(html, /context-workflow\.webp/);
   assert.match(html, /context-display-modes\.webp/);
-  assert.match(html, /context-current-icon\.png/);
+  assert.match(html, /context-mark\.svg/);
+  assert.match(html, /rel="icon" href="\/context\/context-mark\.svg" type="image\/svg\+xml"/);
+  assert.doesNotMatch(html, /context-current-icon\.png/);
   assert.match(html, /github\.com\/hayashiii-ghub\/context/);
   assert.match(html, /github\.com\/hayashiii-ghub\/context\/releases/);
   assert.match(html, /releases\/latest\/download\/context-macos\.dmg/);

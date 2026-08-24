@@ -59,7 +59,7 @@ export default function ContextPage() {
 
       <nav className={styles.navPill} aria-label="Primary">
         <a className={styles.brand} href="#top">
-          <Image src="/context/context-current-icon.png" width={20} height={20} alt="" unoptimized />
+          <Image src="/context/context-mark.svg" width={20} height={20} alt="" unoptimized />
           <span>Context</span>
         </a>
         <a className={styles.navHow} href="#how">How it works</a>
@@ -145,7 +145,7 @@ export default function ContextPage() {
             <p className={styles.centerCopy}>Download Context, open the DMG, then drag the app to Applications.</p>
             <div className={styles.installBar}>
               <div className={styles.installName}>
-                <Image src="/context/context-current-icon.png" width={40} height={40} alt="Context app icon" unoptimized />
+                <Image src="/context/context-mark.svg" width={40} height={40} alt="Context mark" unoptimized />
                 <span>Context for macOS</span>
               </div>
               <a className={`${styles.button} ${styles.buttonPrimary}`} href={downloadUrl}>Download for macOS</a>
@@ -183,7 +183,7 @@ export default function ContextPage() {
 
       <footer className={styles.footer}>
         <div className={styles.footerMeta}>
-          <Image src="/context/context-current-icon.png" width={20} height={20} alt="" unoptimized />
+          <Image src="/context/context-mark.svg" width={20} height={20} alt="" unoptimized />
           <span>Context</span><span className={styles.dot} /><span>Open source</span>
         </div>
         <div className={styles.footerLinks}>

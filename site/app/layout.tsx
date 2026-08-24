@@ -10,7 +10,8 @@ export const metadata: Metadata = {
   title,
   description,
   icons: {
-    icon: "/context/context-current-icon.png",
+    icon: [{ url: "/context/context-mark.svg", type: "image/svg+xml" }],
+    shortcut: ["/context/context-mark.svg"],
   },
   openGraph: {
     title,
