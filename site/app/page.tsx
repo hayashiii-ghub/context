@@ -4,6 +4,7 @@ import styles from "./context.module.css";
 
 const repositoryUrl = "https://github.com/hayashiii-ghub/context";
 const releasesUrl = `${repositoryUrl}/releases`;
+const downloadUrl = `${repositoryUrl}/releases/latest/download/context-macos.dmg`;
 
 const features = [
   {
@@ -141,15 +142,18 @@ export default function ContextPage() {
           <div className={styles.sectionNarrow}>
             <p className={styles.eyebrow}>— Install</p>
             <h2 id="install-title">One DMG. Then drag to Applications.</h2>
-            <p className={styles.centerCopy}>The first public build is being prepared. Follow the releases page to get it when it is ready.</p>
+            <p className={styles.centerCopy}>Download Context, open the DMG, then drag the app to Applications.</p>
             <div className={styles.installBar}>
               <div className={styles.installName}>
                 <Image src="/context/context-current-icon.png" width={40} height={40} alt="Context app icon" unoptimized />
                 <span>Context for macOS</span>
               </div>
-              <a className={`${styles.button} ${styles.buttonPrimary}`} href={releasesUrl}>View releases</a>
+              <a className={`${styles.button} ${styles.buttonPrimary}`} href={downloadUrl}>Download for macOS</a>
             </div>
-            <p className={styles.installMeta}>macOS 26+ · Apple Silicon / Intel</p>
+            <p className={styles.installMeta}>v0.1.0 · macOS 26+ · Apple Silicon &amp; Intel</p>
+            <p className={styles.installNote}>
+              Context is not yet notarized by Apple. macOS may block it the first time you open it. To continue, open System Settings → Privacy &amp; Security and click “Open Anyway.”
+            </p>
           </div>
         </section>
 
@@ -171,7 +175,7 @@ export default function ContextPage() {
         <section className={styles.finalCta} aria-labelledby="final-title">
           <h2 id="final-title">Keep it close before you need it.</h2>
           <div className={styles.heroActions}>
-            <a className={`${styles.button} ${styles.buttonPrimary}`} href={releasesUrl}>View releases</a>
+            <a className={`${styles.button} ${styles.buttonPrimary}`} href={downloadUrl}>Download for macOS</a>
             <a className={`${styles.button} ${styles.buttonSecondary}`} href={repositoryUrl}>View on GitHub</a>
           </div>
         </section>

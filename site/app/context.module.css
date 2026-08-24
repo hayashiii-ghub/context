@@ -285,6 +285,7 @@
 .installName img { flex: 0 0 auto; border-radius: 10px; }
 .installBar .button { min-width: 150px; }
 .installMeta { margin: 18px 0 0; color: #555551; font-family: "Context Mono", monospace; font-size: 10px; letter-spacing: 0.08em; }
+.installNote { max-width: 610px; margin: 16px auto 0; color: var(--dim); font-size: 12.5px; line-height: 1.65; }
 
 .faq { padding-top: 122px; }
 .faq h2 { margin: 16px 0 58px; font-size: 44px; line-height: 1.15; letter-spacing: -0.02em; }

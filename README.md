@@ -30,13 +30,13 @@ npm test
 
 ## Install
 
-The first public build will be published on
-[GitHub Releases](https://github.com/hayashiii-ghub/context/releases). Until
-then, build the app locally:
+Download the latest
+[DMG](https://github.com/hayashiii-ghub/context/releases/latest/download/context-macos.dmg)
+or browse [GitHub Releases](https://github.com/hayashiii-ghub/context/releases).
 
-```sh
-make package VERSION=v0.1.0
-```
+Context is not yet notarized by Apple. macOS may block it the first time you
+open it. To continue, open **System Settings → Privacy & Security** and click
+**Open Anyway**.
 
 Context uses Finder automation only when you explicitly add the current Finder
 selection with `Option + Tab`. It does not use accounts, cloud sync, analytics,
