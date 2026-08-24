@@ -15,13 +15,13 @@ export const metadata: Metadata = {
   openGraph: {
     title,
     description,
-    images: ["/context/context-workflow.png"],
+    images: ["/context/context-workflow.webp"],
   },
   twitter: {
     card: "summary_large_image",
     title,
     description,
-    images: ["/context/context-workflow.png"],
+    images: ["/context/context-workflow.webp"],
   },
 };
 

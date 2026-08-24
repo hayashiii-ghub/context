@@ -11,7 +11,7 @@ const features = [
     index: "i. capture",
     title: "Put it down before the thought moves on.",
     body: "Select something in Finder and press Option + Tab, or drag it in. Files, folders, links, images, and text all land on the same small shelf.",
-    image: "/context/context-workflow.png",
+    image: "/context/context-workflow.webp",
     alt: "A file moving from Finder into Context and then into another Mac app",
     className: styles.workflowCrop,
   },
@@ -19,7 +19,7 @@ const features = [
     index: "ii. hold",
     title: "A Mac utility, not another window.",
     body: "Context stays above your work without turning into a workspace of its own. It keeps the handoff visible and the rest of your desktop usable.",
-    image: "/context/context-display-modes.png",
+    image: "/context/context-display-modes.webp",
     alt: "Context floating above a macOS desktop in On Screen mode",
     className: styles.onScreenCrop,
   },
@@ -27,7 +27,7 @@ const features = [
     index: "iii. place",
     title: "On Screen or in the menu bar.",
     body: "Keep the shelf in sight while you move between apps, or tuck it into the menu bar until the next handoff. Switch whenever the work changes.",
-    image: "/context/context-display-modes.png",
+    image: "/context/context-display-modes.webp",
     alt: "Context open from the macOS menu bar",
     className: styles.menuBarCrop,
   },
@@ -35,7 +35,7 @@ const features = [
     index: "iv. return",
     title: "Drag it back when the next place is ready.",
     body: "Take one item or a stack and drop it into the app, folder, message, or document that needs it. The originals stay exactly where they were.",
-    image: "/context/context-workflow.png",
+    image: "/context/context-workflow.webp",
     alt: "Items leaving the Context shelf for another application",
     className: styles.returnCrop,
   },
@@ -88,7 +88,7 @@ export default function ContextPage() {
           <div className={styles.showcase}>
             <div className={styles.showcaseFrame}>
               <Image
-                src="/context/context-workflow.png"
+                src="/context/context-workflow.webp"
                 width={1716}
                 height={916}
                 priority

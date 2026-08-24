@@ -35,8 +35,8 @@ test("renders the standalone Context site at the root", async () => {
   assert.match(text, /Put it down before the thought moves on/);
   assert.match(text, /On Screen or in the menu bar/);
   assert.match(text, /Local-first, because in-between work is still your work/);
-  assert.match(html, /context-workflow\.png/);
-  assert.match(html, /context-display-modes\.png/);
+  assert.match(html, /context-workflow\.webp/);
+  assert.match(html, /context-display-modes\.webp/);
   assert.match(html, /context-current-icon\.png/);
   assert.match(html, /github\.com\/hayashiii-ghub\/context/);
   assert.match(html, /github\.com\/hayashiii-ghub\/context\/releases/);
