@@ -38,6 +38,10 @@ test("renders the standalone Context site at the root", async () => {
   assert.match(text, /Local-first, because in-between work is still your work/);
   assert.match(html, /context-workflow\.webp/);
   assert.match(html, /context-display-modes\.webp/);
+  assert.match(html, /context-handoff\.webm/);
+  assert.match(html, /context-handoff\.mp4/);
+  assert.match(html, /context-handoff-poster\.webp/);
+  assert.match(text, /A Finder file is added to the Context menu bar shelf/);
   assert.match(html, /context-mark\.svg/);
   assert.match(html, /property="og:type" content="website"/);
   assert.match(html, /property="og:url" content="https:\/\/context\.haygsiiii\.chatgpt\.site\/"/);

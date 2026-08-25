@@ -1,5 +1,6 @@
 import Image from "next/image";
 
+import ContextDemo from "./ContextDemo";
 import styles from "./context.module.css";
 
 const repositoryUrl = "https://github.com/hayashiii-ghub/context";
@@ -87,15 +88,7 @@ export default function ContextPage() {
         <section className={styles.showcaseSection} aria-label="Context in motion">
           <div className={styles.showcase}>
             <div className={styles.showcaseFrame}>
-              <Image
-                src="/context/context-workflow.webp"
-                width={1716}
-                height={916}
-                priority
-                unoptimized
-                alt="A file moving from Finder into Context and out to another Mac app"
-                sizes="(max-width: 640px) calc(100vw - 28px), 1240px"
-              />
+              <ContextDemo />
             </div>
           </div>
         </section>
