@@ -1,8 +1,18 @@
+import AppKit
 import Foundation
 import Testing
 @testable import Context
 
 struct FileActionServiceTests {
+    @Test @MainActor func sourcePanelAcceptsMultipleFilesAndFolders() {
+        let panel = FileActionService().makeSourcePanel()
+
+        #expect(panel.canChooseFiles)
+        #expect(panel.canChooseDirectories)
+        #expect(panel.allowsMultipleSelection)
+        #expect(panel.prompt == "Add")
+    }
+
     @Test func exportsAllItemsUsingOriginalFileNames() throws {
         let root = FileManager.default.temporaryDirectory
             .appendingPathComponent("ContextTests-\(UUID().uuidString)", isDirectory: true)

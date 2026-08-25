@@ -4,6 +4,11 @@ import Foundation
 enum ShelfPresentationMode: String {
     case floating
     case menuBar
+    case notch
+
+    func resolved(hasNotch: Bool) -> ShelfPresentationMode {
+        self == .notch && !hasNotch ? .menuBar : self
+    }
 }
 
 final class ShelfPresentationPreference {
@@ -20,7 +25,7 @@ final class ShelfPresentationPreference {
     init(defaults: UserDefaults = .standard) {
         self.defaults = defaults
         mode = defaults.string(forKey: Self.defaultsKey)
-            .flatMap(ShelfPresentationMode.init(rawValue:)) ?? .floating
+            .flatMap(ShelfPresentationMode.init(rawValue:)) ?? .menuBar
     }
 }
 

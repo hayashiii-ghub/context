@@ -25,8 +25,8 @@ const features = [
   },
   {
     index: "iii. place",
-    title: "On Screen or in the menu bar.",
-    body: "Keep the shelf in sight while you move between apps, or tuck it into the menu bar until the next handoff. Switch whenever the work changes.",
+    title: "Menu bar by default. More when you want it.",
+    body: "Context starts tucked into the menu bar. Keep the shelf on screen for longer handoffs, or enable the optional Notch Island on supported Macs.",
     image: "/context/context-display-modes.webp",
     alt: "Context open from the macOS menu bar",
     className: styles.menuBarCrop,
@@ -48,7 +48,7 @@ const faqs = [
   ["Does removing an item delete the original?", "No. Removing something from the shelf does not remove the original file from its location."],
   ["What happens when I quit Context?", "The shelf and Context-managed temporary copies are cleared. Only your chosen display mode is remembered."],
   ["Does Context upload anything?", "No. There is no Context account, cloud sync, analytics SDK, or hosted work history. The shelf stays on your Mac."],
-  ["Does it work on a Mac without a notch?", "Yes. Context currently uses either an On Screen floating shelf or a menu bar shelf. A notch is not required."],
+  ["Does it work on a Mac without a notch?", "Yes. The menu bar shelf is the default, On Screen remains available, and Notch Island is an optional display mode on supported Macs."],
   ["Can I use it on Intel Macs?", "Yes. The current universal build supports both Apple Silicon and Intel Macs running macOS 26 or later."],
 ];
 
@@ -150,7 +150,7 @@ export default function ContextPage() {
               </div>
               <a className={`${styles.button} ${styles.buttonPrimary}`} href={downloadUrl}>Download for macOS</a>
             </div>
-            <p className={styles.installMeta}>v0.1.0 · macOS 26+ · Apple Silicon &amp; Intel</p>
+            <p className={styles.installMeta}>v0.2.0 · macOS 26+ · Apple Silicon &amp; Intel</p>
             <p className={styles.installNote}>
               Context is not yet notarized by Apple. macOS may block it the first time you open it. To continue, open System Settings → Privacy &amp; Security and click “Open Anyway.”
             </p>
