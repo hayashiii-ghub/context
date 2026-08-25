@@ -13,6 +13,8 @@ const features = [
     title: "Put it down before the thought moves on.",
     body: "Select something in Finder and press Option + Tab, or drag it in. Files, folders, links, images, and text all land on the same small shelf.",
     image: "/context/context-workflow.webp",
+    width: 1716,
+    height: 916,
     alt: "A file moving from Finder into Context and then into another Mac app",
     className: styles.workflowCrop,
   },
@@ -21,6 +23,8 @@ const features = [
     title: "A Mac utility, not another window.",
     body: "Context stays above your work without turning into a workspace of its own. It keeps the handoff visible and the rest of your desktop usable.",
     image: "/context/context-display-modes.webp",
+    width: 1782,
+    height: 883,
     alt: "Context floating above a macOS desktop in On Screen mode",
     className: styles.onScreenCrop,
   },
@@ -29,6 +33,8 @@ const features = [
     title: "Menu bar by default. More when you want it.",
     body: "Context starts tucked into the menu bar. Keep the shelf on screen for longer handoffs, or enable the optional Notch Island on supported Macs.",
     image: "/context/context-display-modes.webp",
+    width: 1782,
+    height: 883,
     alt: "Context open from the macOS menu bar",
     className: styles.menuBarCrop,
   },
@@ -37,6 +43,8 @@ const features = [
     title: "Drag it back when the next place is ready.",
     body: "Take one item or a stack and drop it into the app, folder, message, or document that needs it. The originals stay exactly where they were.",
     image: "/context/context-workflow.webp",
+    width: 1716,
+    height: 916,
     alt: "Items leaving the Context shelf for another application",
     className: styles.returnCrop,
   },
@@ -104,8 +112,8 @@ export default function ContextPage() {
               <div className={`${styles.featureVisual} ${feature.className}`}>
                 <Image
                   src={feature.image}
-                  width={1782}
-                  height={916}
+                  width={feature.width}
+                  height={feature.height}
                   unoptimized
                   alt={feature.alt}
                   sizes="(max-width: 900px) calc(100vw - 48px), 542px"

@@ -384,16 +384,24 @@
   .heroMeta { margin-top: 24px; line-height: 1.8; }
   .showcaseSection { padding: 0 0 36px; }
   .showcase { padding: 0 14px; }
-  .showcaseFrame { height: clamp(256px, 58vw, 340px); aspect-ratio: auto; border-radius: 18px; }
+  .showcaseFrame { height: auto; aspect-ratio: 16 / 9; border-radius: 18px; }
   .showcaseVideo,
-  .showcasePoster { width: 100%; max-width: none; transform: none; object-position: center top; }
+  .showcasePoster { width: 100%; max-width: none; transform: none; object-fit: contain; object-position: center; }
   .demoControl { right: 10px; bottom: 10px; }
   .section { padding: 72px 24px; }
   .features { padding-top: 48px; }
   .featureRow { min-height: 0; padding: 56px 0; gap: 26px; }
   .featureCopy h2 { max-width: 12ch; font-size: clamp(29px, 8vw, 34px); line-height: 1.08; }
   .featureCopy > p:last-child { max-width: none; font-size: 15.5px; line-height: 1.62; }
-  .featureVisual { height: 246px; border-radius: 18px; }
+  .featureVisual { height: auto; border-radius: 18px; }
+  .featureVisual img {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    transform: none;
+    object-fit: contain;
+    object-position: center;
+  }
   .privacy { padding-block: 94px; }
   .privacy h2,
   .installSection h2 { font-size: 40px; line-height: 1.08; }
