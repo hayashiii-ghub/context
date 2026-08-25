@@ -154,6 +154,14 @@ final class ShelfStore: ObservableObject {
         }
     }
 
+    @discardableResult
+    func addItemsFromOpenPanel() -> Bool {
+        let urls = fileActions.chooseSourceItems()
+        guard !urls.isEmpty else { return false }
+        addFileURLs(urls)
+        return true
+    }
+
     func copyItemsToChosenFolder() {
         guard let destination = fileActions.chooseDestinationFolder() else { return }
         exportAllItems(to: destination)

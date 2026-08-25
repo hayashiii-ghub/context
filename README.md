@@ -6,6 +6,9 @@ is ready.
 
 Context is free, open source, local-first, and built for macOS 26 or later.
 
+Context starts in the menu bar. From **Shelf Location**, you can keep the shelf
+on screen or enable the optional Notch Island on supported Macs.
+
 This repository contains two parts of the product:
 
 - `Sources/Context/` and `Tests/ContextTests/`: the macOS app and its tests

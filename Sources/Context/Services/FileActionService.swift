@@ -30,6 +30,20 @@ struct FileExportResult: Sendable {
 }
 
 struct FileActionService {
+    func chooseSourceItems() -> [URL] {
+        let panel = makeSourcePanel()
+        return panel.runModal() == .OK ? panel.urls : []
+    }
+
+    func makeSourcePanel() -> NSOpenPanel {
+        let panel = NSOpenPanel()
+        panel.canChooseFiles = true
+        panel.canChooseDirectories = true
+        panel.allowsMultipleSelection = true
+        panel.prompt = "Add"
+        return panel
+    }
+
     func chooseDestinationFolder() -> URL? {
         let panel = NSOpenPanel()
         panel.canChooseFiles = false
