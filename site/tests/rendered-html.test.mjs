@@ -33,8 +33,10 @@ test("renders the standalone Context site at the root", async () => {
   assert.match(html, /<html lang="en">/);
   assert.match(html, /<title>Context — Keep it close before you need it<\/title>/);
   assert.match(text, /Keep it close/);
-  assert.match(text, /Put it down before the thought moves on/);
-  assert.match(text, /Menu bar by default\. More when you want it/);
+  assert.match(text, /From Finder to Context in one shortcut/);
+  assert.match(text, /Keep the stack above your work/);
+  assert.match(text, /Turn the notch into a drop target/);
+  assert.match(text, /Menu Bar stays the default/);
   assert.match(text, /optional Notch Island/);
   assert.match(text, /Local-first, because in-between work is still your work/);
   assert.match(html, /context-workflow\.webp/);
