@@ -23,6 +23,18 @@ Validate the macOS app and its packaging scripts:
 make check
 ```
 
+Debug builds expose local-only recording triggers through the `ContextDemo`
+helper. Start Context with `make run`, then run a command such as:
+
+```sh
+swift run ContextDemo add-finder-selection
+```
+
+Available commands are `add-finder-selection`, `clear-shelf`, `show-shelf`,
+`toggle-shelf`, `use-menu-bar`, `use-on-screen`, and `use-notch-island`.
+Release builds do not listen for these triggers, and the helper is not bundled
+with the app.
+
 Validate the site:
 
 ```sh

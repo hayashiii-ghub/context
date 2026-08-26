@@ -1,10 +1,26 @@
 import AppKit
+import CoreFoundation
 import OSLog
 
 private let finderImportLogger = Logger(
     subsystem: "work.hayashigoto.Context",
     category: "FinderImport"
 )
+
+#if DEBUG
+private let contextDemoNotificationCallback: CFNotificationCallback = {
+    _, observer, name, _, _ in
+    guard let observer, let name else { return }
+
+    let application = Unmanaged<ContextApplication>
+        .fromOpaque(observer)
+        .takeUnretainedValue()
+    let notificationName = name.rawValue as String
+    Task { @MainActor in
+        application.handleDemoNotification(named: notificationName)
+    }
+}
+#endif
 
 @main
 @MainActor
@@ -67,6 +83,10 @@ final class ContextApplication: NSObject, NSApplicationDelegate, NSMenuDelegate 
     private var menuBarShelfMenuItem: NSMenuItem?
     private var notchShelfMenuItem: NSMenuItem?
 
+#if DEBUG
+    private static let demoNotificationPrefix = "work.hayashigoto.Context.demo."
+#endif
+
     static func main() {
         guard let instanceGuard = SingleInstanceGuard(identifier: bundleIdentifier) else {
             activateRunningInstance()
@@ -114,10 +134,19 @@ final class ContextApplication: NSObject, NSApplicationDelegate, NSMenuDelegate 
         updateFinderSelectionHotKey(
             frontmostBundleIdentifier: NSWorkspace.shared.frontmostApplication?.bundleIdentifier
         )
+#if DEBUG
+        configureDemoTriggers()
+#endif
     }
 
     func applicationWillTerminate(_ notification: Notification) {
         NSWorkspace.shared.notificationCenter.removeObserver(self)
+#if DEBUG
+        CFNotificationCenterRemoveEveryObserver(
+            CFNotificationCenterGetDarwinNotifyCenter(),
+            Unmanaged.passUnretained(self).toOpaque()
+        )
+#endif
         notchShelfController.stop()
         addFinderSelectionHotKey = nil
         toggleShelfHotKey = nil
@@ -327,6 +356,59 @@ final class ContextApplication: NSObject, NSApplicationDelegate, NSMenuDelegate 
             return false
         }
     }
+
+#if DEBUG
+    private func configureDemoTriggers() {
+        let center = CFNotificationCenterGetDarwinNotifyCenter()
+        let observer = Unmanaged.passUnretained(self).toOpaque()
+        for command in Self.demoCommands {
+            CFNotificationCenterAddObserver(
+                center,
+                observer,
+                contextDemoNotificationCallback,
+                Self.demoNotificationName(command),
+                nil,
+                .deliverImmediately
+            )
+        }
+    }
+
+    private static let demoCommands = [
+        "add-finder-selection",
+        "clear-shelf",
+        "show-shelf",
+        "toggle-shelf",
+        "use-menu-bar",
+        "use-on-screen",
+        "use-notch-island",
+    ]
+
+    private static func demoNotificationName(_ command: String) -> CFString {
+        ((demoNotificationPrefix + command) as NSString) as CFString
+    }
+
+    fileprivate func handleDemoNotification(named name: String) {
+        switch name {
+        case Self.demoNotificationPrefix + "add-finder-selection":
+            guard importCurrentFinderSelection() else { return }
+            showPreferredShelf()
+        case Self.demoNotificationPrefix + "clear-shelf":
+            store.clear()
+        case Self.demoNotificationPrefix + "show-shelf":
+            showPreferredShelf()
+        case Self.demoNotificationPrefix + "toggle-shelf":
+            togglePreferredShelf()
+        case Self.demoNotificationPrefix + "use-menu-bar":
+            selectPresentationMode(.menuBar)
+        case Self.demoNotificationPrefix + "use-on-screen":
+            selectPresentationMode(.floating)
+        case Self.demoNotificationPrefix + "use-notch-island":
+            selectPresentationMode(.notch)
+        default:
+            break
+        }
+    }
+#endif
 
     @objc private func copyItems() {
         store.copyItemsToChosenFolder()
