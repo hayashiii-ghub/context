@@ -165,7 +165,7 @@ export default function ContextPage() {
         <section className={`${styles.section} ${styles.faq}`} aria-labelledby="faq-title">
           <div className={styles.sectionNarrow}>
             <p className={styles.eyebrow}>— FAQ</p>
-            <h2 id="faq-title">Questions, answered honestly.</h2>
+            <h2 id="faq-title">A few things worth knowing.</h2>
             <div className={styles.faqList}>
               {faqs.map(([question, answer]) => (
                 <details className={styles.faqItem} key={question}>

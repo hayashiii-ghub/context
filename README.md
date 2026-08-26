@@ -65,6 +65,14 @@ Context uses Finder automation only when you explicitly add the current Finder
 selection with `Option + Tab`. It does not use accounts, cloud sync, analytics,
 or a hosted work history.
 
+## Acknowledgements
+
+Context's optional Notch Island interaction and landing-page presentation were
+informed by [CodexIsland](https://github.com/ericjypark/codex-island). Context
+and CodexIsland are independent projects. See
+[THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) for attribution and license
+details.
+
 ## License
 
 MIT
