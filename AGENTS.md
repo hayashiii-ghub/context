@@ -6,6 +6,7 @@ This repository contains the standalone Context product for macOS.
 
 - `Sources/Context/` and `Tests/ContextTests/`: the macOS app and its Swift tests. `Package.swift`, the root `Makefile`, `Assets/`, and `script/` belong to the app.
 - `site/`: the standalone English product site, built with Next.js/vinext and deployed through a Cloudflare Worker.
+- `videos/context-hero-montage/`: the editable HyperFrames source for the website hero. Follow its nested `AGENTS.md` when working there.
 
 User-facing product copy should use `Context`.
 
@@ -13,6 +14,7 @@ User-facing product copy should use `Context`.
 
 - macOS app: `make check`
 - website: from `site/`, run `npm run lint` and `npm test`
+- hero video: from `videos/context-hero-montage/`, run `npm run check`
 
 ## Working conventions
 

@@ -9,10 +9,11 @@ Context is free, open source, local-first, and built for macOS 26 or later.
 Context starts in the menu bar. From **Shelf Location**, you can keep the shelf
 on screen or enable the optional Notch Island on supported Macs.
 
-This repository contains two parts of the product:
+This repository contains three parts of the product:
 
 - `Sources/Context/` and `Tests/ContextTests/`: the macOS app and its tests
 - `site/`: the standalone English product site
+- `videos/context-hero-montage/`: the editable source for the website hero video
 
 ## Development
 
@@ -29,6 +30,13 @@ cd site
 npm ci
 npm run lint
 npm test
+```
+
+Validate the HyperFrames hero composition:
+
+```sh
+cd videos/context-hero-montage
+npm run check
 ```
 
 ## Install
