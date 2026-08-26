@@ -274,8 +274,6 @@
 .workflowCrop img { object-position: center; }
 .onScreenCrop img { width: 164%; max-width: none; object-position: left center; }
 .menuBarCrop img { width: 164%; max-width: none; transform: translateX(-39%); object-position: right center; }
-.returnCrop img { object-position: 50% 68%; }
-
 .privacy { padding-top: 132px; padding-bottom: 132px; text-align: center; }
 .privacy h2,
 .installSection h2 {

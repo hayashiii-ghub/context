@@ -10,7 +10,8 @@ Show one complete handoff â€” from Finder, through Context, into the next app â€
 - Real screen capture owns every product-behavior claim.
 - HyperFrames may compose real UI captures, but must not invent app UI.
 - Notch Island is shown as an optional supported-Mac mode.
-- Keep the page to one real master take, three focused feature loops, and one return still.
+- Keep the page to one real master take and three focused feature loops.
+- The hero owns the complete return into the next app; the feature rows isolate Capture, Hold, and Place without repeating that handoff.
 - All website media is silent, loops without reversing product behavior, and has a static fallback.
 
 ## Deliverables
@@ -21,7 +22,6 @@ Show one complete handoff â€” from Finder, through Context, into the next app â€
 | i. capture | Selected items are ready to add without opening another workspace | Real feature capture | 4.1s | `context-capture` video + poster |
 | ii. hold | The handoff remains visible without taking over the desktop | Real feature capture | 6.8s | `context-hold` video + poster |
 | iii. place | Notch Island is available as an optional drop target | Real feature capture | 8.7s | `context-place` video + poster |
-| iv. return | Drag the item into the next app while the original remains untouched | Existing workflow still | Static | `context-workflow.webp` |
 
 ## Hero master shot
 
@@ -69,11 +69,6 @@ Show one complete handoff â€” from Finder, through Context, into the next app â€
 - Use a real Finder-to-Notch interaction on a clean demo desktop.
 - Sequence: drag one dummy file to Notch Island, show accepted feedback, then expand to confirm the item.
 - Keep the surrounding page copy responsible for explaining that Notch Island is optional.
-
-### iv. return
-
-- Keep the existing workflow still because the hero already demonstrates the complete handoff.
-- Preserve its source aspect ratio on narrow screens.
 
 ## Background
 

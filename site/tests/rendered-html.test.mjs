@@ -39,7 +39,7 @@ test("renders the standalone Context site at the root", async () => {
   assert.match(text, /Menu Bar stays the default/);
   assert.match(text, /optional Notch Island/);
   assert.match(text, /Local-first, because in-between work is still your work/);
-  assert.match(html, /context-workflow\.webp/);
+  assert.doesNotMatch(html, /context-workflow\.webp/);
   assert.match(html, /context-capture-poster\.webp/);
   assert.match(html, /context-hold-poster\.webp/);
   assert.match(html, /context-place-poster\.webp/);

@@ -48,19 +48,6 @@ const features = [
       caption: "A Finder file is dragged into the optional Notch Island, then shown inside Context.",
     },
   },
-  {
-    index: "iv. return",
-    title: "Drag it back when the next place is ready.",
-    body: "Take one item or a stack and drop it into the app, folder, message, or document that needs it. The originals stay exactly where they were.",
-    media: {
-      type: "image" as const,
-      src: "/context/context-workflow.webp",
-      width: 1716,
-      height: 916,
-      alt: "Items leaving the Context shelf for another application",
-      className: styles.returnCrop,
-    },
-  },
 ];
 
 const faqs = [
