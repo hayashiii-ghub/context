@@ -43,10 +43,10 @@ test("renders the standalone Context site at the root", async () => {
   assert.match(html, /context-capture-poster\.webp/);
   assert.match(html, /context-hold-poster\.webp/);
   assert.match(html, /context-place-poster\.webp/);
-  assert.match(html, /context-handoff\.webm/);
-  assert.match(html, /context-handoff\.mp4/);
-  assert.match(html, /context-handoff-poster\.webp/);
-  assert.match(text, /A Finder file is added to the Context menu bar shelf/);
+  assert.match(html, /context-hero\.webm/);
+  assert.match(html, /context-hero\.mp4/);
+  assert.match(html, /context-hero-poster\.webp/);
+  assert.match(text, /A Finder item is captured into Context/);
   assert.match(html, /context-mark\.svg/);
   assert.match(html, /property="og:type" content="website"/);
   assert.match(html, /property="og:url" content="https:\/\/context\.haygsiiii\.chatgpt\.site\/"/);

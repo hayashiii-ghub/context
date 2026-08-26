@@ -44,17 +44,17 @@ export default function ContextDemo() {
         loop
         playsInline
         preload="metadata"
-        poster="/context/context-handoff-poster.webp"
+        poster="/context/context-hero-poster.webp"
         aria-describedby="context-demo-caption"
         onPlay={() => setIsPlaying(true)}
         onPause={() => setIsPlaying(false)}
       >
-        <source src="/context/context-handoff.webm" type="video/webm" />
-        <source src="/context/context-handoff.mp4" type="video/mp4" />
+        <source src="/context/context-hero.webm" type="video/webm" />
+        <source src="/context/context-hero.mp4" type="video/mp4" />
       </video>
       <Image
         className={styles.showcasePoster}
-        src="/context/context-handoff-poster.webp"
+        src="/context/context-hero-poster.webp"
         width={1600}
         height={900}
         unoptimized
@@ -70,7 +70,7 @@ export default function ContextDemo() {
         {isPlaying ? "Pause" : "Play"}
       </button>
       <figcaption className={styles.srOnly} id="context-demo-caption">
-        A Finder file is added to the Context menu bar shelf, then dragged into the next app.
+        A Finder item is captured into Context, held above the desktop, placed through the optional Notch Island, and returned to the next app.
       </figcaption>
     </figure>
   );

@@ -2,7 +2,7 @@
 
 ## Goal
 
-Show one complete handoff — from Finder, through Context, into the next app — without making Context look like a notch-only product.
+Show the full Context rhythm — Capture, Hold, Place, and Return — in one concise hero montage without making Context look like a notch-only product.
 
 ## Media principles
 
@@ -10,25 +10,25 @@ Show one complete handoff — from Finder, through Context, into the next app �
 - Real screen capture owns every product-behavior claim.
 - HyperFrames may compose real UI captures, but must not invent app UI.
 - Notch Island is shown as an optional supported-Mac mode.
-- Keep the page to one real master take and three focused feature loops.
-- The hero owns the complete return into the next app; the feature rows isolate Capture, Hold, and Place without repeating that handoff.
+- Keep the page to one HyperFrames-edited hero montage and three focused feature loops.
+- The hero previews the whole product rhythm; the feature rows slow down Capture, Hold, and Place so each interaction remains legible.
 - All website media is silent, loops without reversing product behavior, and has a static fallback.
 
 ## Deliverables
 
 | Placement | Claim | Source | Duration | Deliverable |
 |---|---|---|---:|---|
-| Hero showcase | Context carries an item from Finder into the next app | Real master capture | 9–11s | `context-handoff` video + poster |
+| Hero showcase | Context captures, holds, places, and returns an item | Real captures composed in HyperFrames | 10.8s | `context-hero` video + poster |
 | i. capture | Selected items are ready to add without opening another workspace | Real feature capture | 4.1s | `context-capture` video + poster |
 | ii. hold | The handoff remains visible without taking over the desktop | Real feature capture | 6.8s | `context-hold` video + poster |
 | iii. place | Notch Island is available as an optional drop target | Real feature capture | 8.7s | `context-place` video + poster |
 
-## Hero master shot
+## Hero montage
 
 ### Setup
 
-- Native capture: 3024×1964, 30 fps.
-- Website master: 1920×1080; delivery: 1600×900.
+- Source captures: 3024×1964, 30 fps.
+- HyperFrames master: 1920×1080, 10.8 seconds; website delivery: 1600×900.
 - Use the dedicated dark graphite Context demo background.
 - Finder and a local Safari `Project Draft` drop target are visible; Dock, desktop icons, and notifications are hidden.
 - The Safari target is an offline demo page with no network requests or personal data.
@@ -37,13 +37,12 @@ Show one complete handoff — from Finder, through Context, into the next app �
 
 ### Action
 
-1. Hold the clean start frame for about 0.8 seconds.
-2. Select `Product brief.md` in Finder.
-3. Press Option + Tab.
-4. Let the Menu Bar shelf open and visibly show one item.
-5. Drag `Product brief.md` from Context into the Safari drop target.
-6. Hold the completed handoff for about 0.8 seconds.
-7. Return to the start plate with a short dissolve; never reverse the UI action.
+1. Begin on a clean Finder plate with the dummy files visible.
+2. Capture a Finder selection into the Menu Bar shelf.
+3. Hold a small stack above the current work using the On Screen shelf.
+4. Place an item through the optional Notch Island and confirm it inside Context.
+5. Return the item into the next app.
+6. Dissolve back to the clean Finder plate; never reverse the UI action.
 
 ### Crop safety
 
