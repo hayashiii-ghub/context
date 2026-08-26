@@ -10,7 +10,7 @@ Show one complete handoff — from Finder, through Context, into the next app �
 - Real screen capture owns every product-behavior claim.
 - HyperFrames may compose real UI captures, but must not invent app UI.
 - Notch Island is shown as an optional supported-Mac mode.
-- Keep the page to one real master take, one composed display-mode loop, and one still image.
+- Keep the page to one real master take, three focused feature loops, and one return still.
 - All website media is silent, loops without reversing product behavior, and has a static fallback.
 
 ## Deliverables
@@ -18,10 +18,10 @@ Show one complete handoff — from Finder, through Context, into the next app �
 | Placement | Claim | Source | Duration | Deliverable |
 |---|---|---|---:|---|
 | Hero showcase | Context carries an item from Finder into the next app | Real master capture | 9–11s | `context-handoff` video + poster |
-| i. capture | One shortcut puts the selected item down | Cut from hero master | 3.5–4s | `context-capture` loop |
-| ii. hold | The handoff remains visible without taking over the desktop | Real still capture | Static | `context-hold` WebP |
-| iii. place | Menu Bar by default; On Screen and Notch Island when wanted | HyperFrames composition using real captures | 5.5–6s | `context-display-modes` loop + poster |
-| iv. return | Drag the item into the next app while the original remains untouched | Cut from hero master | 3.5–4s | `context-return` loop |
+| i. capture | Selected items are ready to add without opening another workspace | Real feature capture | 4.1s | `context-capture` video + poster |
+| ii. hold | The handoff remains visible without taking over the desktop | Real feature capture | 6.8s | `context-hold` video + poster |
+| iii. place | Notch Island is available as an optional drop target | Real feature capture | 8.7s | `context-place` video + poster |
+| iv. return | Drag the item into the next app while the original remains untouched | Existing workflow still | Static | `context-workflow.webp` |
 
 ## Hero master shot
 
@@ -55,28 +55,25 @@ Show one complete handoff — from Finder, through Context, into the next app �
 
 ### i. capture
 
-- Reuse the hero segment from the Finder selection through the shelf showing one item.
-- Hold the accepted state for about 0.6 seconds, then dissolve to the start plate.
-- Mobile fallback: the accepted-state poster with a small `Option + Tab` treatment in HTML, not baked into the image.
+- Show harmless demo items selected in Finder and ready for Context.
+- Keep the interaction readable without baking labels into the video.
+- Use the matching WebP frame as the lazy and reduced-motion fallback.
 
 ### ii. hold
 
-- Capture one real On Screen shelf with three harmless dummy items over a still-usable Finder or Safari window.
-- No animation is required. This quiet frame prevents every section from competing for attention.
+- Show a real Context shelf holding three harmless dummy items above a still-usable Finder window.
+- Let the shelf remain steady long enough to read without competing with the page copy.
 
 ### iii. place
 
-- Use HyperFrames only for this comparison.
-- Sequence: Menu Bar (~2.0s) → On Screen (~1.6s) → Notch Island (~1.2s) → Menu Bar (~0.8s).
-- Add `OPTIONAL · SUPPORTED MACS` as live site copy or a HyperFrames label for Notch Island.
-- Menu Bar remains the largest and first state.
-- Every visible mode is sourced from a real Context capture.
+- Use a real Finder-to-Notch interaction on a clean demo desktop.
+- Sequence: drag one dummy file to Notch Island, show accepted feedback, then expand to confirm the item.
+- Keep the surrounding page copy responsible for explaining that Notch Island is optional.
 
 ### iv. return
 
-- Reuse the hero segment from the shelf drag through the completed drop.
-- Show the source item still present in Finder so the non-destructive behavior is visually credible.
-- Hold the result, then dissolve to the start plate.
+- Keep the existing workflow still because the hero already demonstrates the complete handoff.
+- Preserve its source aspect ratio on narrow screens.
 
 ## Background
 
@@ -90,7 +87,8 @@ Show one complete handoff — from Finder, through Context, into the next app �
 
 - Video: WebM/VP9 first, MP4/H.264 fallback.
 - Poster: WebP.
-- Attributes: `autoplay`, `muted`, `loop`, `playsinline`, `preload="metadata"`.
+- Attributes: `autoplay`, `muted`, `loop`, `playsinline`, `preload="none"` for feature loops.
+- Insert feature video sources only when their frame approaches the viewport, and pause playback off screen.
 - `prefers-reduced-motion`: show the poster instead of autoplaying.
 - Target hero file size: at most 1.5 MB per format.
 - Target feature loop size: at most 400 KB per format.

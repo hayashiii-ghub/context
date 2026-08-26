@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { readFile } from "node:fs/promises";
 import test from "node:test";
 
 async function render(pathname = "/") {
@@ -37,7 +38,9 @@ test("renders the standalone Context site at the root", async () => {
   assert.match(text, /optional Notch Island/);
   assert.match(text, /Local-first, because in-between work is still your work/);
   assert.match(html, /context-workflow\.webp/);
-  assert.match(html, /context-display-modes\.webp/);
+  assert.match(html, /context-capture-poster\.webp/);
+  assert.match(html, /context-hold-poster\.webp/);
+  assert.match(html, /context-place-poster\.webp/);
   assert.match(html, /context-handoff\.webm/);
   assert.match(html, /context-handoff\.mp4/);
   assert.match(html, /context-handoff-poster\.webp/);
@@ -60,4 +63,22 @@ test("renders the standalone Context site at the root", async () => {
   assert.match(text, /Context is not yet notarized by Apple/);
   assert.match(text, /Privacy &amp; Security/);
   assert.doesNotMatch(html, /v1\.1\.4|Now becoming Context|Chrome Web Store|CodexIsland/);
+});
+
+test("feature demos keep their lightweight formats and lazy playback behavior", async () => {
+  const pageSource = await readFile(new URL("../app/page.tsx", import.meta.url), "utf8");
+  const demoSource = await readFile(new URL("../app/FeatureDemo.tsx", import.meta.url), "utf8");
+
+  for (const name of ["capture", "hold", "place"]) {
+    assert.match(pageSource, new RegExp(`context-${name}\\.webm`));
+    assert.match(pageSource, new RegExp(`context-${name}\\.mp4`));
+    assert.match(pageSource, new RegExp(`context-${name}-poster\\.webp`));
+  }
+
+  assert.match(demoSource, /IntersectionObserver/);
+  assert.match(demoSource, /preload="none"/);
+  assert.match(demoSource, /prefers-reduced-motion: reduce/);
+  assert.match(demoSource, /isInView && !prefersReducedMotion && !isUserPaused/);
+  assert.match(demoSource, /setIsUserPaused\(true\)/);
+  assert.match(demoSource, /video\.pause\(\)/);
 });
