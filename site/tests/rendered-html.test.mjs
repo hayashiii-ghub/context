@@ -82,5 +82,6 @@ test("feature demos keep their lightweight formats and lazy playback behavior", 
   assert.match(demoSource, /prefers-reduced-motion: reduce/);
   assert.match(demoSource, /isInView && !prefersReducedMotion && !isUserPaused/);
   assert.match(demoSource, /setIsUserPaused\(true\)/);
+  assert.match(demoSource, /setIsUserPaused\(false\)/);
   assert.match(demoSource, /video\.pause\(\)/);
 });
