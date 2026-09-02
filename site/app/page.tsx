@@ -155,7 +155,7 @@ export default function ContextPage() {
               </div>
               <a className={`${styles.button} ${styles.buttonPrimary}`} href={downloadUrl}>Download for macOS</a>
             </div>
-            <p className={styles.installMeta}>v0.2.0 · macOS 26+ · Apple Silicon &amp; Intel</p>
+            <p className={styles.installMeta}>v0.2.1 · macOS 26+ · Apple Silicon &amp; Intel</p>
             <p className={styles.installNote}>
               Context is not yet notarized by Apple. macOS may block it the first time you open it. To continue, open System Settings → Privacy &amp; Security and click “Open Anyway.”
             </p>
