@@ -19,6 +19,7 @@ final class ShelfWindowController: NSObject, NSWindowDelegate {
     private let presentation = ShelfPresentationState()
     private var panel: NSPanel?
     private var localKeyDownMonitor: Any?
+    private var presentationVerification: DispatchWorkItem?
 
     init(
         store: ShelfStore,
@@ -31,6 +32,13 @@ final class ShelfWindowController: NSObject, NSWindowDelegate {
     }
 
     func showShelf() {
+        showShelf(allowRecovery: true)
+    }
+
+    private func showShelf(allowRecovery: Bool) {
+        if let panel, !WindowServerPresentation.isOnScreen(panel) {
+            discardPanel(panel)
+        }
         let panel = shelfPanel()
 
         if presentation.isCollapsed {
@@ -48,11 +56,12 @@ final class ShelfWindowController: NSObject, NSWindowDelegate {
         }
 
         panel.orderFrontRegardless()
+        schedulePresentationVerification(for: panel, allowRecovery: allowRecovery)
         windowLogger.info("Shelf shown")
     }
 
     func toggleShelf() {
-        if panel?.isVisible == true {
+        if let panel, WindowServerPresentation.isOnScreen(panel) {
             hideShelf()
         } else {
             showShelf()
@@ -60,9 +69,40 @@ final class ShelfWindowController: NSObject, NSWindowDelegate {
     }
 
     func hideShelf() {
-        panel?.orderOut(nil)
+        discardPanel()
         stopEscapeKeyMonitor()
         windowLogger.info("Shelf hidden")
+    }
+
+    private func schedulePresentationVerification(for panel: NSPanel, allowRecovery: Bool) {
+        presentationVerification?.cancel()
+        guard allowRecovery else { return }
+
+        let verification = DispatchWorkItem { [weak self, weak panel] in
+            guard let self,
+                  let panel,
+                  self.panel === panel,
+                  !WindowServerPresentation.isOnScreen(panel) else {
+                return
+            }
+
+            windowLogger.error("Shelf panel did not reach WindowServer; recreating it")
+            self.discardPanel(panel)
+            self.showShelf(allowRecovery: false)
+        }
+        presentationVerification = verification
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.15, execute: verification)
+    }
+
+    private func discardPanel(_ expectedPanel: NSPanel? = nil) {
+        if let expectedPanel, panel !== expectedPanel { return }
+
+        presentationVerification?.cancel()
+        presentationVerification = nil
+        panel?.delegate = nil
+        panel?.orderOut(nil)
+        panel?.contentViewController = nil
+        panel = nil
     }
 
     private func shelfPanel() -> NSPanel {

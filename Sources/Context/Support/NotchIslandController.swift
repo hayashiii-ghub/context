@@ -8,6 +8,11 @@ private let notchIslandDropLogger = Logger(
     category: "NotchDrop"
 )
 
+private let notchIslandWindowLogger = Logger(
+    subsystem: "work.hayashigoto.Context",
+    category: "Windowing"
+)
+
 @MainActor
 final class NotchIslandController: NSObject {
     private let store: ShelfStore
@@ -24,6 +29,7 @@ final class NotchIslandController: NSObject {
     private var localMouseMonitor: Any?
     private var globalMouseMonitor: Any?
     private var confirmationTask: Task<Void, Never>?
+    private var panelVerificationTask: Task<Void, Never>?
     private var isObservingScreenChanges = false
 
     init(
@@ -76,7 +82,7 @@ final class NotchIslandController: NSObject {
         geometry = nil
         stopMouseTracking()
         stopEventMonitors()
-        panel?.orderOut(nil)
+        discardPanel()
     }
 
     func hideShelf() {
@@ -98,19 +104,23 @@ final class NotchIslandController: NSObject {
         }
     }
 
-    private func refreshScreen() -> Bool {
+    private func refreshScreen(allowRecovery: Bool = true) -> Bool {
         guard let geometry = NSScreen.screens.lazy.compactMap(\.contextNotchGeometry).first else {
             self.geometry = nil
             stopEventMonitors()
-            panel?.orderOut(nil)
+            discardPanel()
             return false
         }
 
+        if let panel, !WindowServerPresentation.isOnScreen(panel) {
+            discardPanel()
+        }
         self.geometry = geometry
         configurePanel(for: geometry)
         panel?.setFrame(geometry.expandedFrame, display: true)
         panel?.orderFrontRegardless()
         updateMouseCapture()
+        schedulePanelVerification(allowRecovery: allowRecovery)
         return true
     }
 
@@ -193,6 +203,42 @@ final class NotchIslandController: NSObject {
         panel?.ignoresMouseEvents = false
         panel?.orderFrontRegardless()
         panel?.makeKey()
+        schedulePanelVerification(allowRecovery: true)
+    }
+
+    private func schedulePanelVerification(allowRecovery: Bool) {
+        panelVerificationTask?.cancel()
+        guard allowRecovery, let presentedPanel = panel else { return }
+
+        panelVerificationTask = Task { @MainActor [weak self, weak presentedPanel] in
+            try? await Task.sleep(nanoseconds: 150_000_000)
+            guard !Task.isCancelled,
+                  let self,
+                  let presentedPanel,
+                  self.panel === presentedPanel,
+                  !WindowServerPresentation.isOnScreen(presentedPanel) else {
+                return
+            }
+
+            let wasExpanded = self.isExpandedContext
+            notchIslandWindowLogger.error(
+                "Notch Island panel did not reach WindowServer; recreating it"
+            )
+            self.discardPanel()
+            guard self.refreshScreen(allowRecovery: false) else { return }
+            if wasExpanded {
+                self.panel?.ignoresMouseEvents = false
+                self.panel?.makeKey()
+            }
+        }
+    }
+
+    private func discardPanel() {
+        panelVerificationTask?.cancel()
+        panelVerificationTask = nil
+        panel?.orderOut(nil)
+        panel?.contentView = nil
+        panel = nil
     }
 
     private var isExpandedContext: Bool {
