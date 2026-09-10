@@ -8,7 +8,12 @@ context_copy_bundle_resources() {
   local root_dir="$1"
   local resources_dir="$2"
 
-  cp "$root_dir/Assets/Context.icns" "$resources_dir/Context.icns"
+  xcrun actool "$root_dir/Assets/Context.icon" \
+    --compile "$resources_dir" \
+    --platform macosx \
+    --minimum-deployment-target "$CONTEXT_MIN_SYSTEM_VERSION" \
+    --app-icon Context \
+    --output-partial-info-plist "$resources_dir/ContextIcon.plist"
   cp "$root_dir/Assets/MenuBarTemplate.svg" "$resources_dir/MenuBarTemplate.svg"
 }
 
@@ -31,6 +36,8 @@ context_write_info_plist() {
   <string>$CONTEXT_APP_NAME</string>
   <key>CFBundleIconFile</key>
   <string>Context.icns</string>
+  <key>CFBundleIconName</key>
+  <string>Context</string>
   <key>CFBundleShortVersionString</key>
   <string>$app_version</string>
   <key>CFBundleVersion</key>
