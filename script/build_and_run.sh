@@ -5,6 +5,7 @@ MODE="${1:-run}"
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 source "$ROOT_DIR/script/app_bundle.sh"
+source "$ROOT_DIR/script/sparkle.sh"
 source "$ROOT_DIR/script/version.sh"
 
 APP_NAME="$CONTEXT_APP_NAME"
@@ -29,8 +30,10 @@ mkdir -p "$APP_MACOS" "$APP_RESOURCES"
 cp "$BUILD_BINARY" "$APP_BINARY"
 context_copy_bundle_resources "$ROOT_DIR" "$APP_RESOURCES"
 chmod +x "$APP_BINARY"
+context_embed_sparkle "$ROOT_DIR" "$APP_BUNDLE" "$APP_BINARY"
 
 context_write_info_plist "$INFO_PLIST" "$APP_VERSION"
+codesign --force --sign - "$APP_BUNDLE"
 
 open_app() {
   if [[ "$#" -gt 0 ]]; then

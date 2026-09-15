@@ -3,6 +3,9 @@
 CONTEXT_APP_NAME="Context"
 CONTEXT_BUNDLE_ID="work.hayashigoto.Context"
 CONTEXT_MIN_SYSTEM_VERSION="26.0"
+CONTEXT_SPARKLE_FEED_URL="https://github.com/hayashiii-ghub/context/releases/latest/download/appcast.xml"
+CONTEXT_SPARKLE_PUBLIC_ED_KEY="RfBevuBjjY33b182nr6OCFHD3Ifgd+25deHDmpeR9ug="
+CONTEXT_RELEASES_URL="https://github.com/hayashiii-ghub/context/releases"
 
 context_copy_bundle_resources() {
   local root_dir="$1"
@@ -46,6 +49,12 @@ context_write_info_plist() {
   <string>APPL</string>
   <key>LSMinimumSystemVersion</key>
   <string>$CONTEXT_MIN_SYSTEM_VERSION</string>
+  <key>SUFeedURL</key>
+  <string>$CONTEXT_SPARKLE_FEED_URL</string>
+  <key>SUPublicEDKey</key>
+  <string>$CONTEXT_SPARKLE_PUBLIC_ED_KEY</string>
+  <key>SUEnableAutomaticChecks</key>
+  <true/>
   <key>NSHighResolutionCapable</key>
   <true/>
   <key>NSAppleEventsUsageDescription</key>

@@ -56,6 +56,7 @@ npm run check
 Download the latest
 [DMG](https://github.com/hayashiii-ghub/context/releases/latest/download/context-macos.dmg)
 or browse [GitHub Releases](https://github.com/hayashiii-ghub/context/releases).
+Installed copies can update from **Check for Updates...** in the menu.
 
 Context is not yet notarized by Apple. macOS may block it the first time you
 open it. To continue, open **System Settings → Privacy & Security** and click

@@ -1,6 +1,7 @@
 import AppKit
 import CoreFoundation
 import OSLog
+import Sparkle
 
 private let finderImportLogger = Logger(
     subsystem: "work.hayashigoto.Context",
@@ -28,9 +29,6 @@ final class ContextApplication: NSObject, NSApplicationDelegate, NSMenuDelegate 
     private static let bundleIdentifier = "work.hayashigoto.Context"
     private static let shared = ContextApplication()
     private static var singleInstanceGuard: SingleInstanceGuard?
-    private static let latestDownloadURL = URL(
-        string: "https://github.com/hayashiii-ghub/context/releases/latest/download/context-macos.zip"
-    )!
     private static let releasesURL = URL(
         string: "https://github.com/hayashiii-ghub/context/releases/latest"
     )!
@@ -38,6 +36,7 @@ final class ContextApplication: NSObject, NSApplicationDelegate, NSMenuDelegate 
     private let store = ShelfStore()
     private let finderSelectionReader = FinderSelectionReader()
     private let presentationPreference = ShelfPresentationPreference()
+    private let updateController = AppUpdateController()
     private lazy var shelfWindowController = ShelfWindowController(
         store: store,
         onReturnToMenuBar: { [weak self] in
@@ -121,6 +120,7 @@ final class ContextApplication: NSObject, NSApplicationDelegate, NSMenuDelegate 
         store.discardStaleManagedFiles()
 
         configureStatusItem()
+        updateController.start()
         applySavedPresentationMode()
         toggleShelfHotKey = GlobalHotKey(shortcut: .toggleShelf) { [weak self] in
             self?.togglePreferredShelf()
@@ -249,7 +249,12 @@ final class ContextApplication: NSObject, NSApplicationDelegate, NSMenuDelegate 
         menu.addItem(clearItem)
 
         menu.addItem(.separator())
-        menu.addItem(NSMenuItem(title: "Download Latest Version...", action: #selector(downloadLatestVersion), keyEquivalent: ""))
+        let checkForUpdatesItem = NSMenuItem(
+            title: "Check for Updates...",
+            action: #selector(SPUStandardUpdaterController.checkForUpdates(_:)),
+            keyEquivalent: ""
+        )
+        menu.addItem(checkForUpdatesItem)
         menu.addItem(NSMenuItem(title: "Open Release Page", action: #selector(openReleasePage), keyEquivalent: ""))
 
         menu.addItem(.separator())
@@ -258,6 +263,7 @@ final class ContextApplication: NSObject, NSApplicationDelegate, NSMenuDelegate 
         for item in menu.items where item.action != nil {
             item.target = self
         }
+        checkForUpdatesItem.target = updateController.controller
 
         statusMenu = menu
         statusItem = item
@@ -436,10 +442,6 @@ final class ContextApplication: NSObject, NSApplicationDelegate, NSMenuDelegate 
 
     @objc private func useNotchShelf() {
         selectPresentationMode(.notch)
-    }
-
-    @objc private func downloadLatestVersion() {
-        NSWorkspace.shared.open(Self.latestDownloadURL)
     }
 
     @objc private func openReleasePage() {

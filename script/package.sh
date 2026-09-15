@@ -3,6 +3,7 @@ set -euo pipefail
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 source "$ROOT_DIR/script/app_bundle.sh"
+source "$ROOT_DIR/script/sparkle.sh"
 source "$ROOT_DIR/script/version.sh"
 
 APP_NAME="$CONTEXT_APP_NAME"
@@ -48,6 +49,7 @@ cd "$ROOT_DIR"
 sign_app() {
   local app="$1"
   xattr -cr "$app" 2>/dev/null || true
+  context_sign_sparkle "$app"
 
   if [[ "$CONTEXT_CODESIGN_IDENTITY" == "-" ]]; then
     codesign --force --sign - "$app"
@@ -142,6 +144,7 @@ mkdir -p "$APP_MACOS" "$APP_RESOURCES"
 cp "$BUILD_BINARY" "$APP_BINARY"
 context_copy_bundle_resources "$ROOT_DIR" "$APP_RESOURCES"
 chmod +x "$APP_BINARY"
+context_embed_sparkle "$ROOT_DIR" "$APP_BUNDLE" "$APP_BINARY"
 
 context_write_info_plist "$INFO_PLIST" "$APP_VERSION"
 
@@ -260,6 +263,13 @@ if [[ "$CONTEXT_NOTARIZE" == "1" || "$CONTEXT_NOTARIZE" == "true" ]]; then
   xcrun stapler validate "$DMG_MOUNT_DIR/$APP_NAME.app"
 fi
 hdiutil detach "$DMG_MOUNT_DIR" >/dev/null
+
+if [[ "$APP_VERSION" != "0.0.0" ]]; then
+  context_write_appcast \
+    "$ROOT_DIR" \
+    "$ZIP_PATH" \
+    "${CONTEXT_DOWNLOAD_URL_PREFIX:-https://github.com/hayashiii-ghub/context/releases/download/v${APP_VERSION}/}"
+fi
 
 echo "$ZIP_PATH"
 echo "$DMG_PATH"
